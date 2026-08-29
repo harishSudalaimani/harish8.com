@@ -21,9 +21,13 @@ jobs:
           MIRROR_DIR="$(mktemp -d)"
           trap 'rm -rf "$MIRROR_DIR"' EXIT
 
+          echo "Cloning from GitHub: https://github.com/${GITHUB_REPOSITORY}.git"
+
           git clone --mirror \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
             "$MIRROR_DIR/repo.git"
+
+          echo "Pushing to GitLab: https://git.harish8.com/harish/harish8.com.git"
 
           git -C "$MIRROR_DIR/repo.git" push --mirror \
             "https://oauth2:${GITLAB_TOKEN}@git.harish8.com/harish/harish8.com.git"
